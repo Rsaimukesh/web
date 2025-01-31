@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .container {
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        h1 {
+            font-size: 100px;
+            margin: 0;
+            color: #FF6347;
+            opacity: 0;
+            animation: fadeInText 1.5s forwards;
+        }
+
+        p {
+            font-size: 20px;
+            color: #333;
+            margin-top: 20px;
+            opacity: 0;
+            animation: fadeInText 2s forwards;
+            animation-delay: 1s;
+        }
+
+        a {
+            text-decoration: none;
+            color: #FF6347;
+            font-weight: bold;
+            margin-top: 20px;
+            display: inline-block;
+            opacity: 0;
+            animation: fadeInText 2s forwards;
+            animation-delay: 2s;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInText {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>404</h1>
+        <p>Oops! The page you are looking for doesn't exist.</p>
+        <a href="index.html">Go Back to Home</a>
+    </div>
+
+</body>
+</html>

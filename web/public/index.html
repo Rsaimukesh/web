@@ -1,0 +1,185 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Exploitation Challenge</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header class="royal-header">
+        <div class="logo">
+            <h1>Revil</h1>
+            <p>Empowering Ethical Hackers with the Right Tools</p>
+            <img src="revilogo.png" alt="Revil Logo">
+        </div>
+        
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="cart.html">Cart (<span id="cartCount">0</span>)</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero royal-bg">
+            <h2>Welcome to Revil: The Home of Ethical Hacking Tools</h2>
+            <p>Your one-stop shop for premium ethical hacking tools, designed to equip the next generation of cybersecurity professionals.</p>
+        </section>
+
+        <section class="products">
+            <h2>product</h2>
+            <div class="product-grid">
+                <!-- Product Items (10 samples) -->
+                <div class="product-item" data-id="1" data-name="Rubber_ducky" data-price="49.99">
+                    <img src="rubber_ducky.jpg" alt="rubber_ducky">
+                    <h3>Rubber_ducky</h3>
+                    <p class="price">$49.99</p>
+                    <button class="royal-">Add to Cart</button>
+                </div>
+                <div class="product-item" data-id="2" data-name="Royal Collar" data-price="49.99">
+                    <img src="wifi pineapple.png" alt="wifi pineapple">
+                    <h3>wifi pineapple</h3>
+                    <p class="price">$49.99</p>
+                    <button class="royal-btn add-to-cart">Add to Cart</button>
+                </div>
+                <div class="product-item" data-id="3" data-name="Royal Collar" data-price="49.99">
+                    <img src="Pineapple Nano.jpg" alt="Pineapple Nano">
+                    <h3>Pineapple Nano</h3>
+                    <p class="price">$49.99</p>
+                    <button class="royal-btn add-to-cart">Add to Cart</button>
+                </div>
+                <div class="product-item" data-id="4" data-name="Royal Collar" data-price="49.99">
+                    <img src="flipperzero.jfif" alt="flipperzero">
+                    <h3>flipperzero</h3>
+                    <p class="price">$49.99</p>
+                    <button class="royal-btn add-to-cart">Add to Cart</button>
+                </div>
+                <div class="product-item" data-id="4" data-name="Royal Collar" data-price="49.99">
+                    <img src="Alfa AWUS036H.jfif" alt="Alfa AWUS036H">
+                    <h3>Alfa AWUS036H</h3>
+                    <p class="price">$49.99</p>
+                    <button class="royal-btn add-to-cart">Add to Cart</button>
+                </div>
+                <div class="product-item" data-id="5" data-name="Royal Collar" data-price="49.99">
+                    <img src="usbcon.png" alt="USB Condom">
+                    <h3>USB Condom</h3>
+                    <p class="price">$49.99</p>
+                    <button class="royal-btn add-to-cart">Add to Cart</button>
+                </div>
+                <div class="product-item" data-id="4" data-name="Royal Collar" data-price="49.99">
+                    <img src="https://picsum.photos/200/200?random=1" alt="Pet Product">
+                    <h3>Royal Collar</h3>
+                    <p class="price">$49.99</p>
+                    <button class="royal-btn add-to-cart">Add to Cart</button>
+                </div>
+                <div class="product-item" data-id="4" data-name="Royal Collar" data-price="49.99">
+                    <img src="https://picsum.photos/200/200?random=1" alt="Pet Product">
+                    <h3>Royal Collar</h3>
+                    <p class="price">$49.99</p>
+                    <button class="royal-btn add-to-cart">Add to Cart</button>
+                </div>
+        </section>
+    </main>
+
+    <script>
+        class Cart {
+            constructor() {
+                this.items = JSON.parse(localStorage.getItem('royalCart')) || [];
+            }
+
+            saveCart() {
+                localStorage.setItem('royalCart', JSON.stringify(this.items));
+                document.getElementById('cartCount').textContent = this.items.length;
+            }
+
+            addItem(product) {
+                const existingItem = this.items.find(item => item.id === product.id);
+                if (existingItem) {
+                    existingItem.quantity++;
+                } else {
+                    this.items.push({...product, quantity: 1});
+                }
+                this.saveCart();
+            }
+        }
+
+        const cart = new Cart();
+        
+        // Update cart count on page load
+        document.getElementById('cartCount').textContent = cart.items.length;
+
+        // Add to cart functionality
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', () => {
+                const productItem = button.closest('.product-item');
+                const product = {
+                    id: productItem.dataset.id,
+                    name: productItem.dataset.name,
+                    price: parseFloat(productItem.dataset.price)
+                };
+                cart.addItem(product);
+                alert('Added to cart!');
+            });
+        });
+    </script>
+    <div class="cart-items">
+        <p id="emptyCartMsg" style="text-align: center; display: none;">Your cart is empty!</p>
+    </div>
+    
+    <script>
+        class Cart {
+            constructor() {
+                this.items = JSON.parse(localStorage.getItem('royalCart')) || [];
+            }
+    
+            renderCart() {
+                const cartItems = document.querySelector('.cart-items');
+                cartItems.innerHTML = '';
+    
+                if (this.items.length === 0) {
+                    document.getElementById('emptyCartMsg').style.display = "block";
+                    return;
+                }
+    
+                let totalPrice = 0;
+                let totalItems = 0;
+    
+                this.items.forEach(item => {
+                    totalPrice += item.price * item.quantity;
+                    totalItems += item.quantity;
+    
+                    const cartItem = document.createElement('div');
+                    cartItem.className = 'cart-item';
+                    cartItem.innerHTML = `
+                        <div class="item-info">
+                            <img src="${item.image}" alt="${item.name}" style="width: 80px; height: 80px; border-radius: 5px;">
+                            <div>
+                                <h4>${item.name}</h4>
+                                <p>$${item.price.toFixed(2)}</p>
+                            </div>
+                        </div>
+                        <div class="item-controls">
+                            <button class="quantity-btn" data-id="${item.id}" data-action="decrease">-</button>
+                            <span>${item.quantity}</span>
+                            <button class="quantity-btn" data-id="${item.id}" data-action="increase">+</button>
+                            <button class="remove-btn" data-id="${item.id}">×</button>
+                        </div>
+                    `;
+                    cartItems.appendChild(cartItem);
+                });
+    
+                document.getElementById('totalItems').textContent = totalItems;
+                document.getElementById('totalPrice').textContent = totalPrice.toFixed(2);
+            }
+        }
+    
+        const cart = new Cart();
+        cart.renderCart();
+    </script>
+    
+</body>
+</html>

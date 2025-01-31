@@ -1,0 +1,189 @@
+<!-- cart.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Royal Cart</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* style.css additions */
+      
+    </style>
+</head>
+<body>
+    <header class="royal-header">
+        <div class="logo">
+            <h1>Revil</h1>
+            <p>Empowering Ethical Hackers with the Right Tools</p>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="cart.html">Cart (<span id="cartCount">0</span>)</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="cart-section">
+            <h2 class="royal-bg">Your Royal Cart</h2>
+            
+            <div class="cart-container">
+                <div class="cart-items">
+                    <!-- Cart items will be populated by JavaScript -->
+                </div>
+
+                <div class="cart-summary royal-bg">
+                    <h3>Order Summary</h3>
+                    <div class="summary-details">
+                        <p>Total Items: <span id="totalItems">0</span></p>
+                        <p>Total Price: $<span id="totalPrice">0.00</span></p>
+                    </div>
+                    <button class="royal-btn checkout-btn">Proceed to Checkout</button>
+                </div>
+            </div>
+
+            <div class="feedback-form">
+                <h3>Royal Feedback</h3>
+                <form id="feedbackForm">
+                    <div class="form-group">
+                        <input type="text" placeholder="Your Name" required>
+                        <input type="email" placeholder="Your Email" required>
+                    </div>
+                    <br>
+                    <select required>
+                        <option value="">Select Rating</option>
+                        <option>5 Stars</option>
+                        <option>4 Stars</option>
+                        <option>3 Stars</option>
+                        <option>2 Stars</option>
+                        <option>1 Star</option>
+                    </select>
+                    <br>
+                    <br>
+                    <textarea placeholder="Your Royal Feedback..." required></textarea>
+                    <button class="royal-btn" type="submit">Submit Feedback</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        
+        class Cart {
+            constructor() {
+                this.items = JSON.parse(localStorage.getItem('royalCart')) || [];
+            }
+
+            saveCart() {
+                localStorage.setItem('royalCart', JSON.stringify(this.items));
+                document.getElementById('cartCount').textContent = this.items.length;
+            }
+
+            renderCart() {
+                const cartItems = document.querySelector('.cart-items');
+                cartItems.innerHTML = '';
+                
+                let totalPrice = 0;
+                let totalItems = 0;
+
+                this.items.forEach(item => {
+                    const itemTotal = item.price * item.quantity;
+                    totalPrice += itemTotal;
+                    totalItems += item.quantity;
+
+                    const cartItem = document.createElement('div');
+                    cartItem.className = 'cart-item';
+                    cartItem.innerHTML = `
+                        <div class="item-info">
+                            <h4>${item.name}</h4>
+                            <p>$${item.price.toFixed(2)}</p>
+                        </div>
+                        <div class="item-controls">
+                            <button class="quantity-btn" data-id="${item.id}" data-action="decrease">-</button>
+                            <span>${item.quantity}</span>
+                            <button class="quantity-btn" data-id="${item.id}" data-action="increase">+</button>
+                            <button class="remove-btn" data-id="${item.id}">×</button>
+                        </div>
+                    `;
+                    cartItems.appendChild(cartItem);
+                });
+
+                document.getElementById('totalItems').textContent = totalItems;
+                document.getElementById('totalPrice').textContent = totalPrice.toFixed(2);
+            }
+
+            updateQuantity(productId, action) {
+                const item = this.items.find(item => item.id === productId);
+                if (item) {
+                    if (action === 'increase') {
+                        item.quantity++;
+                    } else if (action === 'decrease' && item.quantity > 1) {
+                        item.quantity--;
+                    }
+                    this.saveCart();
+                    this.renderCart();
+                }
+            }
+
+            removeItem(productId) {
+                this.items = this.items.filter(item => item.id !== productId);
+                this.saveCart();
+                this.renderCart();
+            }
+        }
+
+        const cart = new Cart();
+        cart.renderCart();
+
+        // Event delegation for quantity controls
+        document.querySelector('.cart-items').addEventListener('click', (e) => {
+            const target = e.target;
+            if (target.classList.contains('quantity-btn')) {
+                const productId = target.dataset.id;
+                const action = target.dataset.action;
+                cart.updateQuantity(productId, action);
+            }
+            if (target.classList.contains('remove-btn')) {
+                const productId = target.dataset.id;
+                cart.removeItem(productId);
+            }
+        });
+        <!-- Product List -->
+
+
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', function() {
+                const product = this.closest('.product-item');
+                const id = product.dataset.id;
+                const name = product.dataset.name;
+                const price = parseFloat(product.dataset.price);
+                const image = product.querySelector('img').src;
+
+                let cart = JSON.parse(localStorage.getItem('royalCart')) || [];
+
+                let existingItem = cart.find(item => item.id === id);
+                if (existingItem) {
+                    existingItem.quantity++;
+                } else {
+                    cart.push({ id, name, price, quantity: 1, image });
+                }
+
+                localStorage.setItem('royalCart', JSON.stringify(cart));
+
+                alert(`${name} added to cart!`);
+            });
+        });
+
+
+
+        // Feedback form submission
+        document.getElementById('feedbackForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Thank you for your royal feedback!');
+            e.target.reset();
+        });
+    </script>
+</body>
+</html>

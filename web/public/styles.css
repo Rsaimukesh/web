@@ -1,0 +1,336 @@
+:root {
+    --primary-color: #00f9ff;  /* Neon cyan */
+    --secondary-color: #ff00ff; /* Neon pink */
+    --accent-color: #39ff14; /* Neon green */
+    --dark-bg: #0a0a0a; /* Deep black */
+    --cyber-gradient: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+}
+
+body {
+    font-family: 'Courier New', monospace;
+    background-color: var(--dark-bg);
+    color: var(--primary-color);
+    line-height: 1.6;
+}
+
+/* Cyberpunk Header */
+.royal-header {
+    background-color: rgba(10, 10, 10, 0.9);
+    border-bottom: 3px solid var(--primary-color);
+    box-shadow: 0 0 15px var(--primary-color);
+    padding: 1rem;
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Container for the logo, h1, and p */
+.logo {
+    display: flex;
+    align-items: center;  /* Align vertically */
+    justify-content: space-between;  /* Space out logo, heading, and paragraph */
+    padding: 1rem;
+}
+
+/* Logo styling */
+.logo img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+}
+
+/* Center the heading */
+.logo h1 {
+    flex-grow: 1;  /* Make the h1 element take up remaining space */
+    text-align: center;  /* Center the heading */
+    color: white;
+    font-family: 'Glitch', sans-serif;  /* Use a glitch-style font */
+    font-size: 2rem;  /* Adjust size */
+    letter-spacing: 2px;
+    margin: 0;
+}
+
+/* Glitch effect for h1 */
+@keyframes glitch {
+    0% {
+        transform: translate(2px, 0);
+        text-shadow: 1px 0px 0px rgba(255, 0, 0, 0.8);
+    }
+    20% {
+        transform: translate(-2px, 0);
+        text-shadow: -1px 0px 0px rgba(0, 255, 0, 0.8);
+    }
+    40% {
+        transform: translate(2px, 0);
+        text-shadow: 1px 0px 0px rgba(0, 0, 255, 0.8);
+    }
+    60% {
+        transform: translate(-2px, 0);
+        text-shadow: -1px 0px 0px rgba(255, 255, 0, 0.8);
+    }
+    80% {
+        transform: translate(2px, 0);
+        text-shadow: 1px 0px 0px rgba(255, 0, 255, 0.8);
+    }
+    100% {
+        transform: translate(0px, 0);
+        text-shadow: 0 0 5px rgba(0, 255, 255, 0.8);
+    }
+}
+
+.logo h1 {
+    animation: glitch 1.5s infinite;
+}
+
+/* Paragraph styling */
+.logo p {
+    color: var(--primary-color);  /* You can adjust the color as needed */
+    font-size: 1.2rem;
+    margin-left: 1rem;  /* Space between the image and the paragraph */
+}
+
+
+/* Navigation */
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+}
+
+nav a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: 1.2rem;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+nav a:hover {
+    color: var(--secondary-color);
+    text-shadow: 0 0 15px var(--secondary-color);
+}
+
+/* Cyberpunk Card Design */
+.royal-bg {
+    background: var(--dark-bg);
+    border: 2px solid var(--primary-color);
+    box-shadow: 0 0 20px var(--primary-color);
+    margin: 2rem 0;
+    padding: 2rem;
+    text-align: center;
+}
+
+/* Product Grid */
+.products {
+    padding: 2rem;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+}
+
+.product-item {
+    background: rgba(10, 10, 10, 0.8);
+    border: 1px solid var(--accent-color);
+    padding: 1rem;
+    border-radius: 10px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.product-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 20px var(--accent-color);
+}
+
+.product-item img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+/* Price Styling */
+.price {
+    color: var(--secondary-color);
+    font-size: 1.4rem;
+    text-shadow: 0 0 10px var(--secondary-color);
+}
+
+/* Cyberpunk Buttons */
+.royal-btn {
+    background: var(--cyber-gradient);
+    color: black;
+    border: none;
+    padding: 0.8rem 2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+}
+
+.royal-btn:hover {
+    animation: btn-glow 1s infinite;
+    transform: scale(1.05);
+}
+
+@keyframes btn-glow {
+    0%, 100% { box-shadow: 0 0 10px var(--primary-color); }
+    50% { box-shadow: 0 0 20px var(--secondary-color); }
+}
+
+/* Cart Page */
+.cart-container {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 2fr 1fr;
+    margin: 2rem 0;
+}
+
+.cart-items {
+    background: rgba(10, 10, 10, 0.8);
+    border: 2px solid var(--primary-color);
+    box-shadow: 0 0 30px var(--primary-color);
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid var(--accent-color);
+}
+
+.item-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.quantity-btn {
+    background: var(--dark-bg);
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.quantity-btn:hover {
+    background: var(--primary-color);
+    box-shadow: 0 0 10px var(--primary-color);
+}
+
+/* Remove Button */
+.remove-btn {
+    background: var(--secondary-color);
+    color: black;
+    font-weight: bold;
+    padding: 0.2rem 0.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.remove-btn:hover {
+    box-shadow: 0 0 15px var(--secondary-color);
+}
+
+/* Cart Summary */
+.cart-summary {
+    background: rgba(10, 10, 10, 0.8);
+    border: 2px solid var(--accent-color);
+    box-shadow: 0 0 20px var(--accent-color);
+    padding: 1.5rem;
+    border-radius: 10px;
+    height: fit-content;
+}
+
+.summary-details {
+    margin: 1.5rem 0;
+    font-size: 1.1rem;
+}
+
+/* Cyberpunk Checkout Button */
+.checkout-btn {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.1rem;
+    background: var(--cyber-gradient);
+    border: none;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.checkout-btn:hover {
+    box-shadow: 0 0 15px var(--primary-color);
+}
+
+/* Cyberpunk Form */
+.feedback-form {
+    background: rgba(10, 10, 10, 0.8);
+    border: 2px solid var(--accent-color);
+    box-shadow: 0 0 25px var(--accent-color);
+    padding: 3rem; /* Increased padding */
+    margin: 2rem auto;
+    max-width: 750px; /* Increased width */
+    border-radius: 20px; /* More curved edges */
+}
+
+.feedback-form input,
+.feedback-form select,
+.feedback-form textarea {
+    background: rgba(0, 0, 0, 0.5);
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    border-radius: 10px; /* Rounded inputs */
+    padding: 1rem;
+    font-size: 1.1rem;
+    width: 75%;
+}
+
+.feedback-form textarea {
+    height: 200px; /* Adjusting height to fit approximately 10 lines of text */
+}
+
+.feedback-form input:focus,
+.feedback-form textarea:focus {
+    outline: none;
+    box-shadow: 0 0 20px var(--primary-color);
+}
+
+
+/* Cyberpunk Scanline Effect */
+@keyframes scanline {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100%); }
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(0deg, transparent 50%, rgba(0, 249, 255, 0.1) 51%);
+    background-size: 100% 4px;
+    pointer-events: none;
+    animation: scanline 6s linear infinite;
+    z-index: 9999;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+    .cart-container {
+        grid-template-columns: 1fr;
+    }
+}
